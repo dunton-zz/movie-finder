@@ -1,7 +1,9 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import AppConstants from '../constants/app_constants';
+import Dispatcher from '../dispatcher/AppDispatcher';
 import { EventEmitter } from 'events';
 import { assign } from 'object-assign';
+import searchMovies from '../utils/appApi';
+import util from 'util';
+import ActionTypes from '../constants/app_constants';
 
 const CHANGE_EVENT = 'change';
 
@@ -11,33 +13,51 @@ let _selected = '';
 class AppStore extends EventEmitter {
 	constructor() {
 		super();
+		Dispatcher.register(this._registerToActions.bind(this));
 
 	}
 
-	emitChange() {
+	setMovieResults(movies) {
+		_movies=movies;
+
+	}
+
+	_registerToActions(action) {
+		switch(action.actionType) {
+			case ActionTypes.SEARCH_MOVIES:
+				console.log(`Search for ${action.movie.title}`);
+				
+				this.emitChange(CHANGE_EVENT);
+				break;
+			case ActionTypes.RECEIVE_MOVIE_RESULTS:
+				this.setMovieResults(action.movies);
+				this.emitChange(CHANGE_EVENT);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	emitChange(CHANGE_EVENT) {
 		this.emit(CHANGE_EVENT);
 	}
 
-	addChangeListener(callback) {
-		this.on('change', callback);
+	getMovies() {
+		return _movies;
 	}
 
-	removeChangeListener(callback) {
-		this.removeListener('change', callback)
+	// HOOK BACK TO CHANGED EVENT
+	addChangeListener(callback) {
+		this.on(CHANGE_EVENT, callback);
 	}
+
+	// REMOVES LISTENER FROM CHANGED EVENT
+	removeChangeListener(callback) {
+		this.removeChangeListener(CHANGE_EVENT, callback);
+	}
+
 }
 
-AppDispatcher.register(function(payload) {
-	let action = payload.action;
 
-	switch(action.actionType){
-		case AppConstants.SEARCH_MOVIES:
-		
-			AppStore.emit(CHANGE_EVENT);
-			break;
-	}
 
-	return true;
-})
-
-export default AppStore;
+export default new AppStore();

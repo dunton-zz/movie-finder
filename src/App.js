@@ -1,40 +1,53 @@
 import React, { Component } from 'react';
 import SearchForm from './components/search_form';
 import AppStore from './stores/app_store';
+import MovieResults from './components/movie_results';
 
-function getAppState() {
-	return {
-
-	}
-}
+import AppActions from './actions/app_actions';
 
 
 class App extends Component {
-	getInitialState() {
-		return getAppState();
-	};
+	constructor(props) {
+		super(props);
 
-	componentDidMount() {
+		this.state = {
+			movies: []
+		}
+
+		this._onChange = this._onChange.bind(this);
+	}
+
+	_onChange() {
+		this.setState({ movies: AppStore.getMovies() })
+	}
+	
+	componentWillMount() {
 		AppStore.addChangeListener(this._onChange);
-	};
+	}
 
 	componentWillUnmount() {
 		AppStore.removeChangeListener(this._onChange);
-	};
-
-	_onChange() {
-		this.setState(getAppState())
 	}
 
+
 	render() {
+		let movieResults;
+		if (this.state.movies == '') {
+			movieResults = ''
+		} else {
+			movieResults = <MovieResults movies={this.state.movies} />
+		}
+		
     	return (
       		<div className="row">
       			<div className="col-md-8 col-md-offset-2">
         			<SearchForm />
+        			{movieResults}
         		</div>
       		</div>
     	);
   	}
+
 }
 
 export default App;
