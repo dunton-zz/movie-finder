@@ -9,7 +9,8 @@ class SearchForm extends Component {
 		let movie = {
 			title: this.refs.title.value.trim()
 		}
-		//AppActions.searchMovies(movie);
+		AppActions.searchMovies(movie);
+   
 	}
 
   	render() {

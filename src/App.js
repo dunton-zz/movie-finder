@@ -11,7 +11,7 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			movies: []
+			movies: ''
 		}
 
 		this._onChange = this._onChange.bind(this);
@@ -19,6 +19,7 @@ class App extends Component {
 
 	_onChange() {
 		this.setState({ movies: AppStore.getMovies() })
+		console.log('changed state of app.js')
 	}
 	
 	componentWillMount() {
@@ -36,6 +37,7 @@ class App extends Component {
 			movieResults = ''
 		} else {
 			movieResults = <MovieResults movies={this.state.movies} />
+			
 		}
 		
     	return (
