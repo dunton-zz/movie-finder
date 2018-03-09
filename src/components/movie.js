@@ -5,7 +5,7 @@ class Movie extends Component {
 	render() {
 		let link = 'http://www.imdb.com/title/'+this.props.movie.imdbID;
 		return (
-				<div className="moviecard">
+				<div className="well">
 					<div className="row">
 						<div className="col-md-6">
 							<img className="thumbnail" src={this.props.movie.Poster} alt="No Poster Available" />
