@@ -9,7 +9,7 @@ class MovieResults extends Component {
 	render() {
 		return (
 			<div>
-				<h3 className="text-center">Results</h3>
+				<h3 className="text-center results">Results</h3>
 				{
 					
 					this.props.movies.map(function(movie, i){

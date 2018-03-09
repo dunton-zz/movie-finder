@@ -30,6 +30,10 @@ class App extends Component {
 		AppStore.removeChangeListener(this._onChange);
 	}
 
+	componentDidUpdate() {
+		console.log(this.state.movies);
+	}
+
 
 	render() {
 		let movieResults;
@@ -42,7 +46,7 @@ class App extends Component {
 		
     	return (
       		<div className="row">
-      			<div className="col-md-8 col-md-offset-2">
+      			<div className="col-md-12">
         			<SearchForm />
         			{movieResults}
         		</div>

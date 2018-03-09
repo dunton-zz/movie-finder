@@ -10,3 +10,15 @@ body {
   border: 1px #ccc solid;
   border-radius: 10px;
 }
+
+.moviecard {
+	padding-top: 25px;
+}
+
+.results {
+	padding-top: 25px;
+}
+
+.list-group {
+	padding-bottom: 15px;
+}
