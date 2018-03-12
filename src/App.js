@@ -19,7 +19,7 @@ class App extends Component {
 
 	_onChange() {
 		this.setState({ movies: AppStore.getMovies() })
-		console.log('changed state of app.js')
+		//console.log('changed state of app.js')
 	}
 	
 	componentWillMount() {
